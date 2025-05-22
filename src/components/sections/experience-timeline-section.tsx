@@ -39,12 +39,11 @@ export default function ExperienceTimelineSection() {
           My Professional Journey
         </h2>
         <div className="relative max-w-3xl mx-auto">
-          {/* Vertical line */}
-          <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-border -translate-x-1/2 hidden md:block"></div>
+          {/* Vertical line removed */}
 
           {experienceData.map((exp, index) => (
             <div key={index} className="mb-12 md:flex md:items-start md:gap-8">
-              {/* Dot on the timeline for larger screens */}
+              {/* Dot on the timeline for larger screens - still useful for visual separation if desired, or remove if not needed */}
               <div className="hidden md:flex md:flex-col md:items-center md:w-12">
                 <div className="mt-1 h-6 w-6 rounded-full bg-primary border-4 border-background shadow-md z-10"></div>
               </div>
