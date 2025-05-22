@@ -1,9 +1,13 @@
+
 import HeroSection from '@/components/sections/hero-section';
 import AboutMeSection from '@/components/sections/about-me-section';
 import SkillsSection from '@/components/sections/skills-section';
 import ExperienceTimelineSection from '@/components/sections/experience-timeline-section';
 import ResumeDownloadSection from '@/components/sections/resume-download-section';
 import ProjectsSection from '@/components/sections/projects-section';
+import BlogSection from '@/components/sections/blog-section';
+import TestimonialsSection from '@/components/sections/testimonials-section';
+import CertificationsAwardsSection from '@/components/sections/certifications-awards-section';
 import type { Metadata } from 'next';
 
 // Page-specific metadata can override layout metadata if needed
@@ -20,6 +24,9 @@ export default function HomePage() {
       <ProjectsSection />
       <SkillsSection />
       <ExperienceTimelineSection />
+      <BlogSection />
+      <TestimonialsSection />
+      <CertificationsAwardsSection />
       <ResumeDownloadSection />
     </>
   );

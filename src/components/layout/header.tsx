@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Menu, X, Home, User, Briefcase, Shapes } from 'lucide-react';
+import { Menu, X, Home, User, Briefcase, Shapes, Newspaper, Quote, Award, Sun, Moon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { usePathname } from 'next/navigation';
 
@@ -12,13 +12,43 @@ const navItems = [
   { href: '#about', label: 'About', icon: <User size={18} /> },
   { href: '#projects', label: 'Projects', icon: <Briefcase size={18} /> },
   { href: '#skills', label: 'Skills', icon: <Shapes size={18} /> },
-  // { href: '#contact', label: 'Contact', icon: <Mail size={18} /> }, // Removed Contact
+  { href: '#blog', label: 'Blog', icon: <Newspaper size={18} /> },
+  { href: '#testimonials', label: 'Testimonials', icon: <Quote size={18} /> },
+  { href: '#certifications', label: 'Certifications', icon: <Award size={18} /> },
 ];
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
+  const [currentTheme, setCurrentTheme] = useState<'light' | 'dark'>('light');
   const pathname = usePathname();
+
+  // Theme toggle logic
+  useEffect(() => {
+    const storedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (storedTheme) {
+      setCurrentTheme(storedTheme);
+    } else if (systemPrefersDark) {
+      setCurrentTheme('dark');
+    } else {
+      setCurrentTheme('light');
+    }
+  }, []);
+
+  useEffect(() => {
+    if (currentTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  }, [currentTheme]);
+
+  const toggleTheme = () => {
+    setCurrentTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
+  };
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -33,27 +63,25 @@ export default function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      let currentSection = '';
+      let currentSectionId = '';
       const sections = navItems.map(item => document.querySelector(item.href)).filter(Boolean);
 
       for (const section of sections) {
         if (section) {
             const rect = section.getBoundingClientRect();
-            // Adjust offset to account for sticky header height (e.g., 64px or 4rem for h-16) + some buffer
-            const headerOffset = 80; // Increased offset
+            const headerOffset = 80; 
             if (rect.top <= headerOffset && rect.bottom >= headerOffset) {
-                currentSection = `#${section.id}`;
+                currentSectionId = `#${section.id}`;
                 break;
             }
         }
       }
       
-      if (!currentSection && window.scrollY < 50) {
-        currentSection = '#home';
+      if (!currentSectionId && window.scrollY < 50 && sections.length > 0 && sections[0]?.id) {
+        currentSectionId = `#${sections[0].id}`;
       }
-      // Removed specific fallback to #contact as it's no longer present
       
-      setActiveSection(currentSection);
+      setActiveSection(currentSectionId);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -70,12 +98,12 @@ export default function Header() {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex space-x-2 items-center">
+        <nav className="hidden md:flex space-x-1 items-center">
           {navItems.map((item) => (
             <Link
               key={item.label}
               href={item.href}
-              className={`flex items-center gap-1.5 px-3 py-2 rounded-md text-sm font-medium transition-colors 
+              className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-sm font-medium transition-colors 
                 ${activeSection === item.href 
                   ? 'bg-primary-foreground text-primary' 
                   : 'text-primary-foreground/80 hover:bg-primary-foreground/10 hover:text-primary-foreground'}`}
@@ -84,10 +112,28 @@ export default function Header() {
               {item.label}
             </Link>
           ))}
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+            className="text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground ml-2"
+          >
+            {currentTheme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
+          </Button>
         </nav>
 
         {/* Mobile Menu Button */}
-        <div className="md:hidden">
+        <div className="md:hidden flex items-center">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+            className="text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground mr-2"
+          >
+            {currentTheme === 'light' ? <Moon size={24} /> : <Sun size={24} />}
+          </Button>
           <Button
             variant="ghost"
             size="icon"
