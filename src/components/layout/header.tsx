@@ -35,17 +35,29 @@ export default function Header() {
   useEffect(() => {
     const handleScroll = () => {
       let currentSection = '';
-      navItems.forEach(item => {
-        const section = document.querySelector(item.href);
-        if (section && section.getBoundingClientRect().top <= 100 && section.getBoundingClientRect().bottom >= 100) {
-          currentSection = item.href;
+      // Check for current section based on scroll position
+      // Adjusted offset to 100 to better detect section visibility
+      const sections = navItems.map(item => document.querySelector(item.href)).filter(Boolean);
+
+      for (const section of sections) {
+        if (section) {
+            const rect = section.getBoundingClientRect();
+            if (rect.top <= 100 && rect.bottom >= 100) {
+                currentSection = `#${section.id}`;
+                break;
+            }
         }
-      });
-      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100 && !currentSection) {
-        // If at the bottom of the page, and no other section is "active", highlight the last nav item
-        const contactSection = navItems.find(item => item.href === '#contact');
-        if (contactSection) {
-             currentSection = contactSection.href;
+      }
+      
+      // Fallback for when at the very top or bottom of the page
+      if (!currentSection) {
+        if (window.scrollY < 50) { // Very top of the page
+            currentSection = '#home';
+        } else if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) { // Bottom of the page
+            const contactSection = navItems.find(item => item.href === '#contact');
+            if (contactSection) {
+                currentSection = contactSection.href;
+            }
         }
       }
       setActiveSection(currentSection);
@@ -58,20 +70,22 @@ export default function Header() {
 
 
   return (
-    <header className="bg-neutral-900 text-neutral-100 shadow-md sticky top-0 z-50">
+    <header className="bg-primary text-primary-foreground shadow-md sticky top-0 z-50">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <Link href="#home" className="text-2xl font-bold text-primary-foreground hover:text-primary-foreground/80 transition-colors">
           Developer Name
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex space-x-6 items-center">
+        <nav className="hidden md:flex space-x-2 items-center">
           {navItems.map((item) => (
             <Link
               key={item.label}
               href={item.href}
-              className={`flex items-center gap-1.5 px-3 py-2 rounded-md text-sm font-medium transition-colors hover:bg-neutral-700 hover:text-primary-foreground
-                ${activeSection === item.href ? 'bg-primary text-primary-foreground' : 'text-neutral-300'}`}
+              className={`flex items-center gap-1.5 px-3 py-2 rounded-md text-sm font-medium transition-colors 
+                ${activeSection === item.href 
+                  ? 'bg-primary-foreground text-primary' 
+                  : 'text-primary-foreground/80 hover:bg-primary-foreground/10 hover:text-primary-foreground'}`}
             >
               {item.icon}
               {item.label}
@@ -86,7 +100,7 @@ export default function Header() {
             size="icon"
             onClick={toggleMobileMenu}
             aria-label="Toggle mobile menu"
-            className="text-neutral-100 hover:bg-neutral-700 hover:text-primary-foreground"
+            className="text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </Button>
@@ -95,15 +109,17 @@ export default function Header() {
 
       {/* Mobile Navigation Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden absolute top-16 left-0 right-0 bg-neutral-900 shadow-lg p-4 z-40">
+        <div className="md:hidden absolute top-16 left-0 right-0 bg-primary shadow-lg p-4 z-40 border-t border-primary-foreground/20">
           <nav className="flex flex-col space-y-3">
             {navItems.map((item) => (
               <Link
                 key={item.label}
                 href={item.href}
                 onClick={() => setIsMobileMenuOpen(false)} // Close menu on click
-                className={`flex items-center gap-2 px-3 py-2 rounded-md text-base font-medium transition-colors hover:bg-neutral-700 hover:text-primary-foreground
-                  ${activeSection === item.href ? 'bg-primary text-primary-foreground' : 'text-neutral-300'}`}
+                className={`flex items-center gap-2 px-3 py-2 rounded-md text-base font-medium transition-colors 
+                  ${activeSection === item.href 
+                    ? 'bg-primary-foreground text-primary' 
+                    : 'text-primary-foreground/80 hover:bg-primary-foreground/10 hover:text-primary-foreground'}`}
               >
                 {item.icon}
                 {item.label}
