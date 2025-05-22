@@ -22,9 +22,9 @@ export default function HeroSection() {
             </a>
           </Button>
           <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 shadow-md hover:shadow-lg transition-shadow duration-300 w-full sm:w-auto">
-            <a href="/resume.pdf" download="JohnDoe_Resume.pdf"> {/* Replace with actual resume file and name */}
+            <a href="/resume.pdf" target="_blank" rel="noopener noreferrer"> {/* Changed target to _blank and removed download attribute */}
               <ArrowDownToLine className="mr-2 h-5 w-5" />
-              Download Resume
+              View Resume
             </a>
           </Button>
         </div>
