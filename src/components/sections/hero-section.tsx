@@ -3,7 +3,7 @@ import { ArrowDownToLine, Briefcase } from "lucide-react";
 
 export default function HeroSection() {
   return (
-    <section className="w-full py-20 md:py-32 bg-background">
+    <section id="home" className="w-full py-20 md:py-32 bg-background">
       <div className="container mx-auto px-4 text-center">
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 text-foreground leading-tight">
           Full-Stack Developer

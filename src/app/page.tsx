@@ -3,6 +3,8 @@ import AboutMeSection from '@/components/sections/about-me-section';
 import SkillsSection from '@/components/sections/skills-section';
 import ExperienceTimelineSection from '@/components/sections/experience-timeline-section';
 import ResumeDownloadSection from '@/components/sections/resume-download-section';
+import ProjectsSection from '@/components/sections/projects-section';
+import ContactSection from '@/components/sections/contact-section';
 import type { Metadata } from 'next';
 
 // Page-specific metadata can override layout metadata if needed
@@ -13,12 +15,14 @@ import type { Metadata } from 'next';
 
 export default function HomePage() {
   return (
-    <main className="flex flex-col items-center min-h-screen bg-background">
+    <>
       <HeroSection />
       <AboutMeSection />
+      <ProjectsSection />
       <SkillsSection />
       <ExperienceTimelineSection />
+      <ContactSection />
       <ResumeDownloadSection />
-    </main>
+    </>
   );
 }

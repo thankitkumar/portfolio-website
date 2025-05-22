@@ -7,6 +7,9 @@ body {
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
   :root {
     --background: 220 17% 95%; /* #F0F2F5 - Light Gray */
     --foreground: 220 10% 20%; /* Dark Gray for text */
