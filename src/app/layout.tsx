@@ -4,6 +4,7 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
+import FloatingContactButtons from '@/components/floating-contact-buttons';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -33,6 +34,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <FloatingContactButtons />
         <Toaster />
       </body>
     </html>

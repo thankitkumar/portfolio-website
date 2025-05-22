@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Menu, X, Home, User, Briefcase, Shapes, Mail } from 'lucide-react';
+import { Menu, X, Home, User, Briefcase, Shapes } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { usePathname } from 'next/navigation';
 
@@ -12,7 +12,7 @@ const navItems = [
   { href: '#about', label: 'About', icon: <User size={18} /> },
   { href: '#projects', label: 'Projects', icon: <Briefcase size={18} /> },
   { href: '#skills', label: 'Skills', icon: <Shapes size={18} /> },
-  { href: '#contact', label: 'Contact', icon: <Mail size={18} /> },
+  // { href: '#contact', label: 'Contact', icon: <Mail size={18} /> }, // Removed Contact
 ];
 
 export default function Header() {
@@ -25,7 +25,6 @@ export default function Header() {
   };
 
   useEffect(() => {
-    // Close mobile menu on route change (if navigation happens to other pages)
     if (isMobileMenuOpen) {
       setIsMobileMenuOpen(false);
     }
@@ -35,36 +34,30 @@ export default function Header() {
   useEffect(() => {
     const handleScroll = () => {
       let currentSection = '';
-      // Check for current section based on scroll position
-      // Adjusted offset to 100 to better detect section visibility
       const sections = navItems.map(item => document.querySelector(item.href)).filter(Boolean);
 
       for (const section of sections) {
         if (section) {
             const rect = section.getBoundingClientRect();
-            if (rect.top <= 100 && rect.bottom >= 100) {
+            // Adjust offset to account for sticky header height (e.g., 64px or 4rem for h-16) + some buffer
+            const headerOffset = 80; // Increased offset
+            if (rect.top <= headerOffset && rect.bottom >= headerOffset) {
                 currentSection = `#${section.id}`;
                 break;
             }
         }
       }
       
-      // Fallback for when at the very top or bottom of the page
-      if (!currentSection) {
-        if (window.scrollY < 50) { // Very top of the page
-            currentSection = '#home';
-        } else if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) { // Bottom of the page
-            const contactSection = navItems.find(item => item.href === '#contact');
-            if (contactSection) {
-                currentSection = contactSection.href;
-            }
-        }
+      if (!currentSection && window.scrollY < 50) {
+        currentSection = '#home';
       }
+      // Removed specific fallback to #contact as it's no longer present
+      
       setActiveSection(currentSection);
     };
 
     window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Initial check
+    handleScroll(); 
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
