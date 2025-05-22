@@ -1,6 +1,8 @@
 import HeroSection from '@/components/sections/hero-section';
 import AboutMeSection from '@/components/sections/about-me-section';
 import SkillsSection from '@/components/sections/skills-section';
+import ExperienceTimelineSection from '@/components/sections/experience-timeline-section';
+import ResumeDownloadSection from '@/components/sections/resume-download-section';
 import type { Metadata } from 'next';
 
 // Page-specific metadata can override layout metadata if needed
@@ -15,6 +17,8 @@ export default function HomePage() {
       <HeroSection />
       <AboutMeSection />
       <SkillsSection />
+      <ExperienceTimelineSection />
+      <ResumeDownloadSection />
     </main>
   );
 }
