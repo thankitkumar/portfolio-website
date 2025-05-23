@@ -14,17 +14,17 @@ export default function ResumeDownloadSection() {
               My Resume
             </CardTitle>
             <CardDescription className="mt-2 text-lg text-muted-foreground">
-              Interested in learning more about my professional background and skills? View my resume for a comprehensive overview.
+              Interested in learning more about my professional background and skills? Download my resume for a comprehensive overview.
             </CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col items-center justify-center mt-4">
             <p className="text-muted-foreground mb-6 text-center max-w-md">
               My resume provides detailed information about my work experience, projects, education, and technical proficiencies.
             </p>
-            <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 shadow-md hover:shadow-lg transition-shadow duration-300">
-              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer"> {/* Changed target to _blank and removed download attribute */}
+            <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 shadow-md hover:shadow-lg transition-shadow duration-300" download="resume.pdf">
+              <a href="/resume.pdf">
                 <ArrowDownToLine className="mr-2 h-5 w-5" />
-                View Resume 
+                Download Resume
               </a>
             </Button>
           </CardContent>

@@ -1,7 +1,8 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { UserRound } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { UserRound, ArrowDownToLine } from "lucide-react";
 import Image from 'next/image';
 
 export default function AboutMeSection() {
@@ -43,6 +44,15 @@ export default function AboutMeSection() {
                 <p className="text-lg text-muted-foreground">
                   My development philosophy centers around writing <strong className="text-foreground">clean, maintainable, and testable code</strong>, and fostering collaborative team environments. My goal is to continue learning and leveraging cutting-edge technologies to build impactful web solutions.
                 </p>
+                <div className="mt-6 flex justify-center md:justify-start">
+                  <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
+                      <ArrowDownToLine className="mr-2 h-5 w-5" />
+                      Download Resume
+                    </a>
+                  </Button>
+                </div>
+
               </div>
             </div>
           </CardContent>
