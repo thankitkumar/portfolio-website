@@ -17,8 +17,8 @@ export const projectsData: Project[] = [
     imageUrl: "https://placehold.co/600x400.png",
     imageHint: "dashboard analytics",
     tags: ["React", "Node.js", "MongoDB", "Express.js", "Chart.js", "Firebase Auth"],
-    liveLink: "#",
-    repoLink: "#",
+    liveLink: "#", // Replace with actual link
+    repoLink: "#",  // Replace with actual link
   },
   {
     title: "Portfolio Website V1",
@@ -26,8 +26,8 @@ export const projectsData: Project[] = [
     imageUrl: "https://placehold.co/600x400.png",
     imageHint: "portfolio website",
     tags: ["HTML", "CSS", "JavaScript", "Responsive Design"],
-    liveLink: "#",
-    repoLink: "#",
+    liveLink: "#", // Replace with actual link
+    repoLink: "#",  // Replace with actual link
   },
   // Add more projects as needed
 ];
