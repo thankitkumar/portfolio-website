@@ -1,7 +1,14 @@
+
+'use client';
+
+import { useState } from 'react';
 import { Button } from "@/components/ui/button";
-import { ArrowDownToLine, Briefcase } from "lucide-react";
+import { Eye, Briefcase } from "lucide-react"; // Changed ArrowDownToLine to Eye
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 export default function HeroSection() {
+  const [isResumeModalOpen, setIsResumeModalOpen] = useState(false);
+
   return (
     <section id="home" className="w-full py-20 md:py-32 bg-background">
       <div className="container mx-auto px-4 text-center">
@@ -21,14 +28,33 @@ export default function HeroSection() {
               View Projects
             </a>
           </Button>
-          <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 shadow-md hover:shadow-lg transition-shadow duration-300 w-full sm:w-auto">
-            <a href="/resume.pdf" target="_blank" rel="noopener noreferrer"> {/* Changed target to _blank and removed download attribute */}
-              <ArrowDownToLine className="mr-2 h-5 w-5" />
-              View Resume
-            </a>
+          <Button 
+            size="lg" 
+            className="bg-accent text-accent-foreground hover:bg-accent/90 shadow-md hover:shadow-lg transition-shadow duration-300 w-full sm:w-auto"
+            onClick={() => setIsResumeModalOpen(true)}
+          >
+            <Eye className="mr-2 h-5 w-5" />
+            View Resume
           </Button>
         </div>
       </div>
+
+      <Dialog open={isResumeModalOpen} onOpenChange={setIsResumeModalOpen}>
+        <DialogContent className="max-w-4xl w-[90vw] h-[90vh] p-0 flex flex-col">
+          <DialogHeader className="p-4 border-b flex-shrink-0">
+            <DialogTitle>My Resume</DialogTitle>
+          </DialogHeader>
+          <div className="flex-grow overflow-hidden">
+            <iframe
+              src="/resume.pdf"
+              title="Resume"
+              width="100%"
+              height="100%"
+              className="border-0"
+            />
+          </div>
+        </DialogContent>
+      </Dialog>
     </section>
   );
 }
