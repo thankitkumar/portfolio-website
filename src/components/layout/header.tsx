@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Menu, X, Home, User, Briefcase, Shapes, Newspaper, Quote, Award, Sun, Moon } from 'lucide-react';
+import { Menu, X, Home, User, Briefcase, Shapes, Newspaper, Award, Sun, Moon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { usePathname } from 'next/navigation';
 
@@ -13,7 +13,6 @@ const navItems = [
   { href: '#projects', label: 'Projects', icon: <Briefcase size={18} /> },
   { href: '#skills', label: 'Skills', icon: <Shapes size={18} /> },
   { href: '#blog', label: 'Blog', icon: <Newspaper size={18} /> },
-  { href: '#testimonials', label: 'Testimonials', icon: <Quote size={18} /> },
   { href: '#certifications', label: 'Certifications', icon: <Award size={18} /> },
 ];
 
