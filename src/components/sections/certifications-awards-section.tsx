@@ -59,8 +59,10 @@ const certificationsAwardsData: CertificationAwardItem[] = [
     date: "Awarded: October 2023",
     icon: <Award className="h-10 w-10 text-primary mb-3" />,
     link: "#",
-    description: "Recognized for an innovative project built with Next.js during the conference hackathon."
-    // No certificateImageUrl for this one.
+    description: "Recognized for an innovative project built with Next.js during the conference hackathon.",
+    certificateImageUrl: "https://placehold.co/800x600.png", // Added placeholder image
+    certificateImageAlt: "Next.js Conf Hackathon Runner Up Award Visual", // Added alt text
+    certificateImageHint: "award badge" // Added hint
   },
   // Example of an award with an image
   // {
@@ -176,3 +178,4 @@ export default function CertificationsAwardsSection() {
     </section>
   );
 }
+
