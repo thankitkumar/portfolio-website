@@ -3,20 +3,36 @@
 
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose } from "@/components/ui/dialog";
-import { Award, ExternalLink, Eye, X as CloseIcon } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"; // Removed DialogClose from here
+import { Award, ExternalLink, Eye } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
-const certificationsAwardsData = [
+// Define the structure for each item, including itemType
+type CertificationAwardItem = {
+  id: string;
+  title: string;
+  itemType: 'certificate' | 'award'; // Added itemType
+  issuer: string;
+  date: string;
+  icon: JSX.Element;
+  link?: string;
+  description: string;
+  certificateImageUrl?: string;
+  certificateImageAlt?: string;
+  certificateImageHint?: string;
+};
+
+const certificationsAwardsData: CertificationAwardItem[] = [
   {
     id: "1",
     title: "AWS Certified Developer - Associate",
+    itemType: "certificate",
     issuer: "Amazon Web Services",
     date: "Issued: March 2023",
     icon: <Award className="h-10 w-10 text-primary mb-3" />,
-    link: "#", // Replace with actual link to certificate if available
+    link: "#", 
     description: "Validated technical expertise in developing and maintaining applications on AWS.",
     certificateImageUrl: "https://placehold.co/800x1100.png", 
     certificateImageAlt: "AWS Certified Developer - Associate Certificate Preview",
@@ -25,6 +41,7 @@ const certificationsAwardsData = [
   {
     id: "2",
     title: "Professional Scrum Master™ I (PSM I)",
+    itemType: "certificate",
     issuer: "Scrum.org",
     date: "Issued: July 2022",
     icon: <Award className="h-10 w-10 text-primary mb-3" />,
@@ -37,36 +54,51 @@ const certificationsAwardsData = [
   {
     id: "3",
     title: "Next.js Conf 2023 Hackathon - Runner Up",
+    itemType: "award",
     issuer: "Vercel",
     date: "Awarded: October 2023",
     icon: <Award className="h-10 w-10 text-primary mb-3" />,
     link: "#",
     description: "Recognized for an innovative project built with Next.js during the conference hackathon."
-    // No certificateImageUrl for this one, so no modal trigger.
+    // No certificateImageUrl for this one.
   },
+  // Example of an award with an image
+  // {
+  //   id: "4",
+  //   title: "Best Innovation Award",
+  //   itemType: "award",
+  //   issuer: "Tech Conference 2024",
+  //   date: "Awarded: Jan 2024",
+  //   icon: <Award className="h-10 w-10 text-primary mb-3" />,
+  //   link: "#",
+  //   description: "Awarded for the most innovative solution.",
+  //   certificateImageUrl: "https://placehold.co/800x600.png",
+  //   certificateImageAlt: "Best Innovation Award Visual",
+  //   certificateImageHint: "award badge"
+  // }
 ];
 
-type CertificateWithImage = typeof certificationsAwardsData[number] & {
+// Type for items that will definitely have image data for the modal
+type ItemWithModalData = CertificationAwardItem & {
   certificateImageUrl: string;
   certificateImageAlt: string;
   certificateImageHint: string;
 };
 
 export default function CertificationsAwardsSection() {
-  const [selectedCertificate, setSelectedCertificate] = useState<CertificateWithImage | null>(null);
+  const [selectedItem, setSelectedItem] = useState<ItemWithModalData | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleOpenModal = (cert: CertificateWithImage) => {
-    setSelectedCertificate(cert);
+  const handleOpenModal = (item: ItemWithModalData) => {
+    setSelectedItem(item);
     setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    // Delay clearing selectedCertificate to allow modal to animate out
     setTimeout(() => {
-      setSelectedCertificate(null);
-    }, 300);
+      setSelectedItem(null);
+    }, 300); // Delay clearing to allow modal to animate out
   };
 
   return (
@@ -102,10 +134,10 @@ export default function CertificationsAwardsSection() {
                     <Button 
                       variant="default" 
                       size="sm" 
-                      onClick={() => handleOpenModal(item as CertificateWithImage)} 
+                      onClick={() => handleOpenModal(item as ItemWithModalData)} 
                       className="inline-flex items-center"
                     >
-                      View Certificate <Eye className="ml-1.5 h-3.5 w-3.5" />
+                      {item.itemType === 'award' ? 'View Award' : 'View Certificate'} <Eye className="ml-1.5 h-3.5 w-3.5" />
                     </Button>
                   )}
                 </div>
@@ -120,25 +152,20 @@ export default function CertificationsAwardsSection() {
         )}
       </div>
 
-      {selectedCertificate && (
+      {selectedItem && (
         <Dialog open={isModalOpen} onOpenChange={(open) => { if (!open) handleCloseModal(); else setIsModalOpen(true); }}>
           <DialogContent className="max-w-3xl w-[90vw] max-h-[90vh] p-2 sm:p-4 flex flex-col">
-            <DialogHeader className="flex-shrink-0 relative pr-10">
-              <DialogTitle className="text-lg sm:text-xl mb-2">{selectedCertificate.title}</DialogTitle>
-              <DialogClose asChild>
-                <Button variant="ghost" size="icon" className="absolute top-0 right-0 sm:top-[-0.5rem] sm:right-[-0.5rem] text-muted-foreground hover:text-foreground">
-                  <CloseIcon className="h-5 w-5" />
-                  <span className="sr-only">Close</span>
-                </Button>
-              </DialogClose>
+            <DialogHeader className="flex-shrink-0 relative"> {/* Removed pr-10 */}
+              <DialogTitle className="text-lg sm:text-xl mb-2">{selectedItem.title}</DialogTitle>
+              {/* The explicit DialogClose button has been removed here, ShadCN's DialogContent provides one */}
             </DialogHeader>
             <div className="flex-grow overflow-auto mt-2 relative">
               <Image
-                src={selectedCertificate.certificateImageUrl}
-                alt={selectedCertificate.certificateImageAlt}
+                src={selectedItem.certificateImageUrl}
+                alt={selectedItem.certificateImageAlt}
                 width={800} 
                 height={1100} 
-                data-ai-hint={selectedCertificate.certificateImageHint}
+                data-ai-hint={selectedItem.certificateImageHint}
                 className="w-full h-auto object-contain"
                 priority
               />
@@ -149,4 +176,3 @@ export default function CertificationsAwardsSection() {
     </section>
   );
 }
-
