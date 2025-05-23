@@ -8,29 +8,45 @@ import type { BlogPost } from "@/types";
 import { format } from 'date-fns';
 
 async function getBlogPosts(): Promise<BlogPost[]> {
+  const apiUrl = `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:9002'}/api/blogs`;
+  console.log("Fetching blog posts from:", apiUrl);
+
   try {
-    // In a server component, you can fetch directly from your domain
-    // Ensure your domain is correctly configured (e.g., http://localhost:9002 for dev)
-    const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:9002'}/api/blogs`, {
-      cache: 'no-store', // Or 'force-cache' or specific revalidation
+    const res = await fetch(apiUrl, {
+      cache: 'no-store', 
     });
 
     if (!res.ok) {
-      // Log error details for server-side debugging
       console.error(`Failed to fetch blog posts: ${res.status} ${res.statusText}`);
       const errorBody = await res.text();
       console.error("Error body:", errorBody);
-      return []; // Return empty array or throw error
+      return []; 
     }
-    const posts = await res.json();
-    return posts.map((post: BlogPost) => ({
-        ...post,
-        // Ensure date is formatted correctly for display
-        date: format(new Date(post.date), "MMMM dd, yyyy"),
-      }));
+    
+    const responseText = await res.text(); // Get raw response text
+    try {
+        const posts = JSON.parse(responseText); // Try to parse it as JSON
+        console.log("Successfully fetched and parsed posts:", posts.length);
+        
+        if (!Array.isArray(posts)) {
+            console.error("Fetched data is not an array:", posts);
+            return [];
+        }
+
+        return posts.map((post: BlogPost) => ({
+            ...post,
+            date: format(new Date(post.date), "MMMM dd, yyyy"),
+          }));
+
+    } catch (jsonError) {
+        console.error("Error parsing JSON response from API:", jsonError);
+        console.error("Raw response text was:", responseText);
+        return [];
+    }
+
   } catch (error) {
-    console.error("Error fetching blog posts in component:", error);
-    return []; // Return empty array on error
+    console.error("Network or other error fetching blog posts in component:", error);
+    return []; 
   }
 }
 
@@ -85,7 +101,8 @@ export default async function BlogSection() {
             <AlertTriangle className="w-12 h-12 text-destructive mb-4" />
             <p className="font-semibold text-xl text-destructive-foreground">Could not load blog posts.</p>
             <p>There might be an issue connecting to the database or the API.</p>
-            <p>Please ensure your MongoDB URI is correctly set up in your environment variables and the database is accessible.</p>
+            <p>Please check your server console and browser console for more specific error messages.</p>
+            <p>Ensure your MongoDB URI (`MONGODB_URI`) and `NEXT_PUBLIC_APP_URL` are correctly set up in your `.env.local` file, and that the database is accessible and contains data in the 'blogs' collection.</p>
           </div>
         )}
       </div>

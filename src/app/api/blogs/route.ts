@@ -4,17 +4,26 @@ import clientPromise from '@/lib/mongodb';
 import type { BlogPost } from '@/types';
 
 export async function GET() {
+  console.log('/api/blogs route hit');
   try {
     const client = await clientPromise;
-    const db = client.db(process.env.MONGODB_DB_NAME || 'portfolioDB'); // Fallback DB name
+    const dbName = process.env.MONGODB_DB_NAME || 'portfolioDB';
+    const db = client.db(dbName);
+    console.log(`Connected to database: ${dbName}`);
 
-    const posts = await db
-      .collection<BlogPost>('blogs') // Assuming your collection is named 'blogs'
-      .find({})
-      .sort({ date: -1 }) // Sort by date descending
-      .toArray();
-
-    // Convert ObjectId to string and Date to ISO string for serialization
+    let posts: BlogPost[];
+    try {
+      posts = await db
+        .collection<BlogPost>('blogs') 
+        .find({})
+        .sort({ date: -1 }) 
+        .toArray();
+      console.log(`Fetched ${posts.length} posts from 'blogs' collection.`);
+    } catch (dbError) {
+      console.error('Database query error:', dbError);
+      return NextResponse.json({ error: 'Failed to fetch blog posts from database' }, { status: 500 });
+    }
+    
     const serializedPosts = posts.map(post => ({
       ...post,
       _id: post._id.toString(),
