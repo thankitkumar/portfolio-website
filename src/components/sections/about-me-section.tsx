@@ -35,13 +35,13 @@ export default function AboutMeSection() {
                   Hello! I&apos;m a passionate Full-Stack Web Developer with three years of dedicated experience in crafting dynamic and user-centric web applications. My journey in tech has been driven by a desire for solving complex problems and building seamless digital experiences.
                 </p>
                 <p className="text-lg text-muted-foreground mb-4">
-                  On the frontend, I specialize in <strong className="text-foreground">React, Next.js, and TypeScript</strong>, transforming ideas into responsive and interactive interfaces using <strong className="text-foreground">Tailwind CSS</strong>. For the backend, I&apos;m proficient with <strong className="text-foreground">Node.js and Express.js</strong>, building robust RESTful APIs and managing data effectively with databases like <strong className="text-foreground">PostgreSQL and MongoDB</strong>.
+                  On the frontend, I specialize in <strong className="text-primary">React, Next.js, and TypeScript</strong>, transforming ideas into responsive and interactive interfaces using <strong className="text-primary">Tailwind CSS</strong>. For the backend, I&apos;m proficient with <strong className="text-primary">Node.js and Express.js</strong>, building robust RESTful APIs and managing data effectively with databases like <strong className="text-primary">PostgreSQL and MongoDB</strong>.
                 </p>
                 <p className="text-lg text-muted-foreground mb-4">
-                  I&apos;ve had the opportunity to contribute to projects in the <strong className="text-foreground">e-commerce and SaaS</strong> sectors, where I&apos;ve honed my skills in delivering scalable and secure solutions.
+                  I&apos;ve had the opportunity to contribute to projects in the <strong className="text-primary">e-commerce and SaaS</strong> sectors, where I&apos;ve honed my skills in delivering scalable and secure solutions.
                 </p>
                 <p className="text-lg text-muted-foreground">
-                  My development philosophy centers around writing <strong className="text-foreground">clean, maintainable, and testable code</strong>, and fostering collaborative team environments. My goal is to continue learning and leveraging cutting-edge technologies to build impactful web solutions.
+                  My development philosophy centers around writing <strong className="text-primary">clean, maintainable, and testable code</strong>, and fostering collaborative team environments. My goal is to continue learning and leveraging cutting-edge technologies to build impactful web solutions.
                 </p>
               </div>
             </div>
