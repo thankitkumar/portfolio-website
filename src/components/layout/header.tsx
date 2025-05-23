@@ -12,7 +12,7 @@ const navItems = [
   { href: '#about', label: 'About', icon: <User size={18} /> },
   { href: '#projects', label: 'Projects', icon: <Briefcase size={18} /> },
   { href: '#skills', label: 'Skills', icon: <Shapes size={18} /> },
-  { href: '#certifications', label: 'Certifications', icon: <Award size={18} /> },
+  { href: '#certifications', label: 'Certifications & Awards', icon: <Award size={18} /> },
 ];
 
 export default function Header() {
