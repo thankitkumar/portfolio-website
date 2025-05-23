@@ -5,7 +5,6 @@ import SkillsSection from '@/components/sections/skills-section';
 import ExperienceTimelineSection from '@/components/sections/experience-timeline-section';
 import ResumeDownloadSection from '@/components/sections/resume-download-section';
 import ProjectsSection from '@/components/sections/projects-section';
-import BlogSection from '@/components/sections/blog-section';
 import CertificationsAwardsSection from '@/components/sections/certifications-awards-section';
 import type { Metadata } from 'next';
 
@@ -23,7 +22,6 @@ export default function HomePage() {
       <ProjectsSection />
       <SkillsSection />
       <ExperienceTimelineSection />
-      <BlogSection />
       <CertificationsAwardsSection />
       <ResumeDownloadSection />
     </>
