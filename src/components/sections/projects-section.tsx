@@ -2,37 +2,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Briefcase } from "lucide-react";
 import Image from "next/image";
-
-const projectsData = [
-  {
-    title: "E-commerce Platform",
-    description: "A full-featured online store with product listings, cart functionality, and secure checkout. Built with Next.js, Stripe, and PostgreSQL.",
-    imageUrl: "https://placehold.co/600x400.png",
-    imageHint: "online store",
-    tags: ["Next.js", "React", "TypeScript", "Stripe", "PostgreSQL", "Tailwind CSS"],
-    liveLink: "#",
-    repoLink: "#",
-  },
-  {
-    title: "SaaS Dashboard",
-    description: "A data visualization and management tool for businesses, featuring charts, user roles, and real-time updates. Developed using React, Node.js, and MongoDB.",
-    imageUrl: "https://placehold.co/600x400.png",
-    imageHint: "dashboard analytics",
-    tags: ["React", "Node.js", "MongoDB", "Express.js", "Chart.js", "Firebase Auth"],
-    liveLink: "#",
-    repoLink: "#",
-  },
-  {
-    title: "Portfolio Website V1",
-    description: "My previous personal portfolio website, showcasing earlier projects and skills. Built with HTML, CSS, and vanilla JavaScript.",
-    imageUrl: "https://placehold.co/600x400.png",
-    imageHint: "portfolio website",
-    tags: ["HTML", "CSS", "JavaScript", "Responsive Design"],
-    liveLink: "#",
-    repoLink: "#",
-  },
-];
-
+import { projectsData } from "@/data/projects"; // Import data
 
 export default function ProjectsSection() {
   return (
@@ -67,10 +37,10 @@ export default function ProjectsSection() {
                   </div>
                 </div>
                 <div className="flex space-x-3 mt-auto">
-                  {project.liveLink !== "#" && (
+                  {project.liveLink && project.liveLink !== "#" && (
                      <a href={project.liveLink} target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:underline">View Live</a>
                   )}
-                  {project.repoLink !== "#" && (
+                  {project.repoLink && project.repoLink !== "#" && (
                      <a href={project.repoLink} target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:underline">GitHub Repo</a>
                   )}
                 </div>

@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { UserRound } from "lucide-react";
 import Image from 'next/image';
+import { personalInfo } from '@/data/personal';
 
 export default function AboutMeSection() {
   return (
@@ -20,29 +21,25 @@ export default function AboutMeSection() {
               <div className="flex-shrink-0">
                 <Avatar className="h-40 w-40 md:h-48 md:w-48 border-4 border-primary shadow-md">
                   <Image 
-                    src="https://placehold.co/200x200.png" 
-                    alt="A professional headshot of the developer" 
+                    src={personalInfo.avatarImageUrl}
+                    alt={`A professional headshot of ${personalInfo.name}`}
                     width={200} 
                     height={200}
-                    data-ai-hint="profile portrait" 
+                    data-ai-hint={personalInfo.avatarImageHint}
                     className="object-cover"
                   />
-                  <AvatarFallback>JD</AvatarFallback>
+                  <AvatarFallback>{personalInfo.avatarFallback}</AvatarFallback>
                 </Avatar>
               </div>
               <div className="text-center md:text-left flex-grow">
-                <p className="text-lg text-muted-foreground mb-4">
-                  Hello! I&apos;m a passionate Full-Stack Web Developer with three years of dedicated experience in crafting dynamic and user-centric web applications. My journey in tech has been driven by a desire for solving complex problems and building seamless digital experiences.
-                </p>
-                <p className="text-lg text-muted-foreground mb-4">
-                  On the frontend, I specialize in <strong className="text-primary">React, Next.js, and TypeScript</strong>, transforming ideas into responsive and interactive interfaces using <strong className="text-primary">Tailwind CSS</strong>. For the backend, I&apos;m proficient with <strong className="text-primary">Node.js and Express.js</strong>, building robust RESTful APIs and managing data effectively with databases like <strong className="text-primary">PostgreSQL and MongoDB</strong>.
-                </p>
-                <p className="text-lg text-muted-foreground mb-4">
-                  I&apos;ve had the opportunity to contribute to projects in the <strong className="text-primary">e-commerce and SaaS</strong> sectors, where I&apos;ve honed my skills in delivering scalable and secure solutions.
-                </p>
-                <p className="text-lg text-muted-foreground">
-                  My development philosophy centers around writing <strong className="text-primary">clean, maintainable, and testable code</strong>, and fostering collaborative team environments. My goal is to continue learning and leveraging cutting-edge technologies to build impactful web solutions.
-                </p>
+                {personalInfo.longBio.map((paragraph, index) => (
+                  <p key={index} className="text-lg text-muted-foreground mb-4">
+                    {index === 1 && <>On the frontend, I specialize in <strong className="text-primary">{personalInfo.frontendSkills.join(', ')}</strong>, transforming ideas into responsive and interactive interfaces. For the backend, I&apos;m proficient with <strong className="text-primary">{personalInfo.backendSkills.join(', ')}</strong>, building robust RESTful APIs and managing data effectively with databases like <strong className="text-primary">{personalInfo.databaseSkills.join(', ')}</strong>.</>}
+                    {index === 2 && <>I&apos;ve had the opportunity to contribute to projects in the <strong className="text-primary">{personalInfo.industryExperience.join(' and ')}</strong> sectors, where I&apos;ve honed my skills in delivering scalable and secure solutions.</>}
+                    {index === 3 && <>My development philosophy centers around writing <strong className="text-primary">{personalInfo.developmentPhilosophy}</strong>, and fostering collaborative team environments. My goal is to continue learning and leveraging cutting-edge technologies to build impactful web solutions.</>}
+                    {index !== 1 && index !== 2 && index !== 3 && paragraph}
+                  </p>
+                ))}
               </div>
             </div>
           </CardContent>

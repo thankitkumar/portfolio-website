@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Menu, X, Home, User, Briefcase, Shapes, Award, Sun, Moon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { usePathname } from 'next/navigation';
+import { personalInfo } from '@/data/personal';
 
 const navItems = [
   { href: '#home', label: 'Home', icon: <Home size={18} /> },
@@ -92,7 +93,7 @@ export default function Header() {
     <header className="bg-primary text-primary-foreground shadow-md sticky top-0 z-50">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <Link href="#home" className="text-2xl font-bold text-primary-foreground hover:text-primary-foreground/80 transition-colors">
-          Developer Name
+          {personalInfo.name}
         </Link>
 
         {/* Desktop Navigation */}

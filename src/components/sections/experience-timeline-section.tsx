@@ -2,33 +2,7 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Briefcase, CalendarDays, CheckCircle, Cpu } from "lucide-react";
-
-const experienceData = [
-  {
-    role: "Senior Full-Stack Developer",
-    company: "Innovatech Solutions Ltd.",
-    duration: "Jan 2022 - Present",
-    achievements: [
-      "Led the architecture and development of a scalable microservices-based e-commerce platform, resulting in a 40% increase in performance.",
-      "Mentored a team of 5 junior developers, improving team productivity by 25%.",
-      "Implemented CI/CD pipelines using GitHub Actions, reducing deployment time by 60%.",
-      "Integrated third-party APIs for payment processing and shipping logistics.",
-    ],
-    technologies: ["React", "Next.js", "Node.js", "TypeScript", "PostgreSQL", "Docker", "Kubernetes", "AWS", "Tailwind CSS"],
-  },
-  {
-    role: "Junior Web Developer",
-    company: "Web Wizards LLC",
-    duration: "May 2020 - Dec 2021",
-    achievements: [
-      "Developed and maintained 10+ client websites using WordPress and custom PHP solutions.",
-      "Contributed to the development of responsive UI components for a SaaS application using React and Redux.",
-      "Assisted in database design and migration for several key projects.",
-      "Collaborated with designers to translate mockups into functional web pages.",
-    ],
-    technologies: ["HTML5", "CSS3", "JavaScript", "React", "Redux", "PHP", "WordPress", "MySQL", "jQuery", "Bootstrap"],
-  },
-];
+import { experienceData } from "@/data/experience"; // Import data
 
 export default function ExperienceTimelineSection() {
   return (
@@ -39,16 +13,13 @@ export default function ExperienceTimelineSection() {
           My Professional Journey
         </h2>
         <div className="relative max-w-3xl mx-auto">
-          {/* Vertical line removed */}
-
           {experienceData.map((exp, index) => (
             <div key={index} className="mb-12 md:flex md:items-start md:gap-8">
-              {/* Dot on the timeline for larger screens - still useful for visual separation if desired, or remove if not needed */}
               <div className="hidden md:flex md:flex-col md:items-center md:w-12">
                 <div className="mt-1 h-6 w-6 rounded-full bg-primary border-4 border-background shadow-md z-10"></div>
               </div>
 
-              <Card className={`w-full shadow-lg ${index % 2 === 0 ? 'md:ml-0' : 'md:ml-0'}`}> {/* Simplified alignment for single column mobile */}
+              <Card className={`w-full shadow-lg ${index % 2 === 0 ? 'md:ml-0' : 'md:ml-0'}`}>
                 <CardHeader>
                   <CardTitle className="text-2xl font-semibold text-foreground">{exp.role}</CardTitle>
                   <CardDescription className="text-md text-muted-foreground flex items-center gap-4">

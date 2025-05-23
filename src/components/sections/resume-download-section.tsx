@@ -4,8 +4,9 @@
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { FileText, Eye } from "lucide-react"; // Changed ArrowDownToLine to Eye
+import { FileText, Eye } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { personalInfo } from '@/data/personal'; // Import data
 
 export default function ResumeDownloadSection() {
   const [isResumeModalOpen, setIsResumeModalOpen] = useState(false);
@@ -46,7 +47,7 @@ export default function ResumeDownloadSection() {
           </DialogHeader>
           <div className="flex-grow overflow-hidden">
             <iframe
-              src="/resume.pdf"
+              src={personalInfo.resumePdfUrl}
               title="Resume"
               width="100%"
               height="100%"
