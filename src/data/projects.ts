@@ -8,8 +8,8 @@ export const projectsData: Project[] = [
     imageUrl: "https://placehold.co/600x400.png",
     imageHint: "online store",
     tags: ["Next.js", "React", "TypeScript", "Stripe", "PostgreSQL", "Tailwind CSS"],
-    liveLink: "#", // Replace with actual link or remove if not applicable
-    repoLink: "#",  // Replace with actual link or remove if not applicable
+    liveLink: "https://example.com/ecommerce-live",
+    repoLink: "https://github.com/yourusername/ecommerce-platform",
   },
   {
     title: "SaaS Dashboard",
@@ -17,8 +17,8 @@ export const projectsData: Project[] = [
     imageUrl: "https://placehold.co/600x400.png",
     imageHint: "dashboard analytics",
     tags: ["React", "Node.js", "MongoDB", "Express.js", "Chart.js", "Firebase Auth"],
-    liveLink: "#", // Replace with actual link
-    repoLink: "#",  // Replace with actual link
+    liveLink: "https://example.com/saas-dashboard-live",
+    repoLink: "https://github.com/yourusername/saas-dashboard",
   },
   {
     title: "Portfolio Website V1",
@@ -26,8 +26,8 @@ export const projectsData: Project[] = [
     imageUrl: "https://placehold.co/600x400.png",
     imageHint: "portfolio website",
     tags: ["HTML", "CSS", "JavaScript", "Responsive Design"],
-    liveLink: "#", // Replace with actual link
-    repoLink: "#",  // Replace with actual link
+    liveLink: "https://example.com/portfolio-v1-live",
+    repoLink: "https://github.com/yourusername/portfolio-v1",
   },
   // Add more projects as needed
 ];
