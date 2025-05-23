@@ -1,8 +1,10 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Briefcase } from "lucide-react";
+import { Briefcase, ExternalLink, Github } from "lucide-react"; // Added ExternalLink and Github
 import Image from "next/image";
+import Link from "next/link"; // Added Link for Next.js optimized navigation if internal
 import { projectsData } from "@/data/projects"; // Import data
+import { Button } from "@/components/ui/button"; // Added Button for styling links
 
 export default function ProjectsSection() {
   return (
@@ -36,12 +38,22 @@ export default function ProjectsSection() {
                     ))}
                   </div>
                 </div>
-                <div className="flex space-x-3 mt-auto">
+                <div className="flex flex-wrap gap-3 mt-auto pt-4 border-t border-border">
                   {project.liveLink && project.liveLink !== "#" && (
-                     <a href={project.liveLink} target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:underline">View Live</a>
+                     <Button variant="outline" size="sm" asChild>
+                       <a href={project.liveLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center">
+                         <ExternalLink className="mr-1.5 h-4 w-4" />
+                         View Website
+                       </a>
+                     </Button>
                   )}
                   {project.repoLink && project.repoLink !== "#" && (
-                     <a href={project.repoLink} target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:underline">GitHub Repo</a>
+                     <Button variant="outline" size="sm" asChild>
+                       <a href={project.repoLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center">
+                         <Github className="mr-1.5 h-4 w-4" />
+                         GitHub Repo
+                       </a>
+                     </Button>
                   )}
                 </div>
               </CardContent>
